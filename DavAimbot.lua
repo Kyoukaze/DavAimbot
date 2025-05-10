@@ -1,4 +1,5 @@
--- Dav Aimbot ESP para Roblox (feito por ChatGPT)
+-- Dav Aimbot com GUI para controle de ESP e Aimbot | Feito por ChatGPT
+
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
@@ -9,6 +10,26 @@ local ESP_ENABLED = true
 local AIMBOT_ENABLED = true
 local AIM_KEY = Enum.KeyCode.E
 
+-- Criar GUI
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "DavAimbotGUI"
+screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+local espButton = Instance.new("TextButton")
+espButton.Size = UDim2.new(0, 200, 0, 50)
+espButton.Position = UDim2.new(0, 10, 0, 10)
+espButton.Text = "Toggle ESP"
+espButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+espButton.Parent = screenGui
+
+local aimbotButton = Instance.new("TextButton")
+aimbotButton.Size = UDim2.new(0, 200, 0, 50)
+aimbotButton.Position = UDim2.new(0, 10, 0, 70)
+aimbotButton.Text = "Toggle Aimbot"
+aimbotButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+aimbotButton.Parent = screenGui
+
+-- Função para criar ESP
 function createESP(player)
     if player.Character and not player.Character:FindFirstChild("DavESP") then
         local highlight = Instance.new("Highlight")
@@ -39,6 +60,7 @@ Players.PlayerAdded:Connect(function(player)
     end)
 end)
 
+-- Função Aimbot
 function getClosestToMouse()
     local closest = nil
     local shortest = math.huge
@@ -69,4 +91,6 @@ RunService.RenderStepped:Connect(function()
     end
 end)
 
-print("Dav Aimbot ativado!")
+-- Funções de Toggle para a GUI
+espButton.MouseButton1Click:Connect(function()
+    ESP_ENABLED = not ESP_ENABLED
